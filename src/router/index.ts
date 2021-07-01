@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '@/views/Home.vue'
 
 Vue.use(VueRouter)
 
@@ -8,7 +7,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
   },
   {
     path: '/login',
@@ -33,7 +32,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/app/:id',
-    component: () => import(/* webpackChunkName: "app" */ '../views/app.vue'),
+    component: () => import(/* webpackChunkName: "app" */ '../views/App.vue'),
     meta: {
       requiresAuth: true,
     },
@@ -79,6 +78,15 @@ const routes: Array<RouteConfig> = [
         name: 'App.Setting',
         component: () =>
           import(/* webpackChunkName: "app.setting" */ '../views/Setting.vue'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: 'page',
+        name: 'App.Page',
+        component: () =>
+          import(/* webpackChunkName: "app.page" */ '../views/Page.vue'),
         meta: {
           requiresAuth: true,
         },

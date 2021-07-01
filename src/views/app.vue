@@ -7,9 +7,14 @@
           <span class="pointer">Admin</span>
 
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item>
+              <router-link
+                :to="{ name: 'Login', query: { nextUrl: $route.fullPath } }"
+                tag="div"
+                class="pointer"
+                >退出</router-link
+              >
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-row>
@@ -43,6 +48,11 @@ import { delay } from 'lodash'
 export default class Home extends Vue {
   menus: any[] = [
     { title: '菜单设置', icon: 'el-icon-menu', route: { name: 'App.Menu' } },
+    {
+      title: '页面设置',
+      icon: 'el-icon-document',
+      route: { name: 'App.Page' },
+    },
     {
       title: '权限设置',
       icon: 'el-icon-s-custom',

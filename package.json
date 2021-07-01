@@ -5,11 +5,13 @@
     "dev": "tsc --noEmit && vite",
     "build": "vite build",
     "serve": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pretty": "pretty-quick --staged"
   },
   "dependencies": {
     "element-ui": "^2.15.3",
     "lodash": "^4.17.21",
+    "normalize.css": "^8.0.1",
     "vue": "^2.6.12",
     "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^9.1.2",
