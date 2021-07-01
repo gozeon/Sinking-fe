@@ -3,7 +3,7 @@ import { createProject } from '@/utils'
 export default {
   namespaced: true,
   state: {
-    projects: createProject(),
+    apps: createProject(),
   },
   mutations: {},
   actions: {},

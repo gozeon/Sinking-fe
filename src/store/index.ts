@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import dictkey from './dictkey'
-import project from './project'
+import app from './app'
 
 Vue.use(Vuex)
 
@@ -12,6 +12,6 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     dictkey,
-    project,
+    app,
   },
 })

@@ -33,13 +33,21 @@
           :md="6"
           :sm="24"
           class="mt-10"
-          v-for="item in projects"
+          v-for="item in apps"
           :key="item.id"
         >
           <el-card shadow="hover">
-            <div slot="header">
+            <el-row
+              type="flex"
+              justify="space-between"
+              align="middle"
+              slot="header"
+            >
               <span>{{ item.name }}</span>
-            </div>
+              <router-link :to="{ name: 'App', params: { id: item.id } }">
+                <i class="el-icon-s-tools hover-primary"></i>
+              </router-link>
+            </el-row>
             {{ item.description }}
           </el-card>
         </el-col>
@@ -54,14 +62,14 @@ import { namespace } from 'vuex-class'
 import { delay } from 'lodash'
 
 const dictKeyModule = namespace('dictkey')
-const projectModule = namespace('project')
+const appModule = namespace('app')
 
 @Component
 export default class Home extends Vue {
   search: string = ''
   searchLoading: boolean = false
   @dictKeyModule.State('tags') tags: any
-  @projectModule.State('projects') projects: any
+  @appModule.State('apps') apps: any
   @dictKeyModule.Mutation('toggleSelectTag') toggleSelectTag: any
   @dictKeyModule.Getter('selectTags') selectTags: any
 
