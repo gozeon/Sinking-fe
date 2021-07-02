@@ -25,3 +25,13 @@ export const createTags = (len = 5) =>
     }),
     len
   )
+
+export const createAuths = (len = 6) =>
+  createArray(
+    () => ({
+      id: faker.datatype.uuid(),
+      name: faker.finance.accountName(),
+      role: 'admin',
+    }),
+    len
+  )

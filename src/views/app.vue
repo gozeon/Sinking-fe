@@ -72,4 +72,8 @@ export default class Home extends Vue {
 .el-menu {
   height: 100%;
 }
+
+.el-main {
+  height: calc(100vh - 60px);
+}
 </style>
