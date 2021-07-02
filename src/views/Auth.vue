@@ -18,6 +18,8 @@
       </el-form-item>
     </el-form>
 
+    <el-divider></el-divider>
+
     <el-table :data="tableData">
       <el-table-column property="id" label="ID"></el-table-column>
       <el-table-column property="name" label="姓名"></el-table-column>
@@ -33,7 +35,7 @@ import { delay } from 'lodash'
 const appModule = namespace('app')
 
 @Component
-export default class Setting extends Vue {
+export default class Auth extends Vue {
   form = {
     role: 'admin',
   }

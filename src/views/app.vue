@@ -45,7 +45,7 @@ import { namespace } from 'vuex-class'
 import { delay } from 'lodash'
 
 @Component
-export default class Home extends Vue {
+export default class App extends Vue {
   menus: any[] = [
     { title: '菜单设置', icon: 'el-icon-menu', route: { name: 'App.Menu' } },
     {
