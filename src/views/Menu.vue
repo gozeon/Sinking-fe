@@ -1,6 +1,8 @@
 <template>
   <div>
-    <el-button size="mini">新建</el-button>
+    <el-button type="primary" @click="createDialogVisible = true"
+      >新建</el-button
+    >
     <el-divider></el-divider>
 
     <el-tree :data="treeData" :allow-drop="allowDrop" draggable>
@@ -12,9 +14,26 @@
         slot-scope="{ node, data }"
       >
         <div>{{ node.label }}</div>
-        <i class="el-icon-delete" @click="handleDelete(data)"></i>
+        <i class="el-icon-delete" @click="handleDelete(node, data)"></i>
       </el-row>
     </el-tree>
+
+    <el-dialog title="新建" :visible.sync="createDialogVisible" append-to-body>
+      <el-form :model="createForm" :rules="createFormRule" ref="createForm">
+        <el-form-item label="类型">
+          <el-select v-model="createForm.type">
+            <el-option label="菜单" value="menu"></el-option>
+            <el-option label="菜单项" value="menuItem"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="名称" prop="label">
+          <el-input v-model="createForm.label"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer">
+        <el-button type="primary" @click="handleCreateForm">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -55,12 +74,22 @@ export default class Menu extends Vue {
     },
   ]
 
-  handleDelete(data: any) {
-    console.log(
-      '🚀 ~ file: Menu.vue ~ line 33 ~ Menu ~ handleDelete ~ data',
-      data
-    )
+  createDialogVisible = false
+  createForm = {
+    type: 'menu',
+    label: '',
   }
+  createFormRule = {
+    label: [{ required: true, message: '必填项', trigger: 'blur' }],
+  }
+
+  handleDelete(node: any, data: any) {
+    const parent = node.parent
+    const children = parent.data.children || parent.data
+    const index = children.findIndex((d: any) => d.id === data.id)
+    children.splice(index, 1)
+  }
+
   allowDrop(draggingNode: any, dropNode: any, type: any) {
     console.log(draggingNode.data.label, draggingNode.data.id)
     console.log(dropNode.data.label, dropNode.data.id)
@@ -85,12 +114,37 @@ export default class Menu extends Vue {
     if (draggingNode.data.type === 'menuItem') {
       if (dropNode.data.type === 'menuItem' && type !== 'inner') {
         return true
-      } else if (dropNode.data.type === 'menu' && type === 'inner') {
+      } else if (
+        dropNode.data.type === 'menu' &&
+        (type === 'inner' || type === 'prev' || type === 'next')
+      ) {
         return true
-      } else {
-        return false
       }
     }
+
+    return false
+  }
+
+  handleCreateForm() {
+    ;(this.$refs as any).createForm.validate((valid: boolean) => {
+      if (valid) {
+        this.treeData = [
+          ...this.treeData,
+          {
+            id: +Date.now(),
+            ...this.createForm,
+          },
+        ]
+
+        this.createDialogVisible = false
+      }
+    })
   }
 }
 </script>
+<style lang="scss" scoped>
+::v-deep .el-dialog__body {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+</style>

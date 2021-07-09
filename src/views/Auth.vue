@@ -34,6 +34,7 @@ import { delay } from 'lodash'
 
 const appModule = namespace('app')
 
+// TODO: infiniteScroll
 @Component
 export default class Auth extends Vue {
   form = {

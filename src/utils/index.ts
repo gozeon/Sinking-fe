@@ -35,3 +35,15 @@ export const createAuths = (len = 6) =>
     }),
     len
   )
+
+export const createPages = (len = 6) =>
+  createArray(
+    () => ({
+      id: faker.datatype.uuid(),
+      name: faker.lorem.word(),
+      desc: faker.lorem.words(10),
+      creatUser: faker.finance.accountName(),
+      creatTime: faker.date.past(),
+    }),
+    len
+  )

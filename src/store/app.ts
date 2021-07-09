@@ -1,10 +1,11 @@
-import { createProject, createAuths } from '@/utils'
+import { createProject, createAuths, createPages } from '@/utils'
 import { Commit, ActionPayload } from 'vuex'
 
 export default {
   namespaced: true,
   state: {
     apps: createProject(),
+    pages: createPages(200),
     auths: createAuths(10),
   },
   mutations: {
