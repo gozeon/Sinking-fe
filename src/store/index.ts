@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import dictkey from './dictkey'
 import app from './app'
+import auth from './auth'
 
 Vue.use(Vuex)
 
@@ -13,5 +14,6 @@ export default new Vuex.Store({
   modules: {
     dictkey,
     app,
+    auth,
   },
 })

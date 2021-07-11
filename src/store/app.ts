@@ -15,7 +15,6 @@ export default {
   },
   actions: {
     async addAuth({ commit }: { commit: Commit }, payload: ActionPayload) {
-      console.log('🚀 ~ file: app.ts ~ line 13 ~ addAuth ~ payload', payload)
       commit('addAuth', {
         ...payload,
         id: +Date.now(),

@@ -105,7 +105,7 @@ router.beforeEach((to, from, next) => {
   // 需要权限
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     // 是否有权限
-    if (localStorage.getItem('jwt') == null) {
+    if (localStorage.getItem(import.meta.env.VITE_TOKEN_KEY + '') == null) {
       next({
         name: 'Login',
         query: { nextUrl: to.fullPath },
