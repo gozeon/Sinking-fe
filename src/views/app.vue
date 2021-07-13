@@ -4,7 +4,7 @@
       <el-row type="flex" justify="space-between" align="middle" class="h-full">
         <router-link to="/" tag="h3" class="pointer">Sinking</router-link>
         <el-dropdown>
-          <span class="pointer">Admin</span>
+          <span class="pointer">{{ username }}</span>
 
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
@@ -44,6 +44,8 @@ import { Component, Vue } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { delay } from 'lodash'
 
+const authModule = namespace('auth')
+
 @Component
 export default class App extends Vue {
   menus: any[] = [
@@ -61,6 +63,8 @@ export default class App extends Vue {
     { title: '统计', icon: 'el-icon-s-data', route: { name: 'App.Analysis' } },
     { title: '设置', icon: 'el-icon-setting', route: { name: 'App.Setting' } },
   ]
+
+  @authModule.State('username') username: any
 }
 </script>
 

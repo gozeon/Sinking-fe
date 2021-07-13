@@ -33,8 +33,8 @@ const authModule = namespace('auth')
 @Component
 export default class Login extends Vue {
   form = {
-    username: '',
-    password: '',
+    username: 'admin',
+    password: 'admin',
     grant_type: '',
     scope: '',
     client_id: '',

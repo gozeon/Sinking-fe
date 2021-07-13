@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 
+import store from '../store/index'
+
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
@@ -8,6 +10,9 @@ const routes: Array<RouteConfig> = [
     path: '/',
     name: 'Home',
     component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
+    meta: {
+      guest: true,
+    },
   },
   {
     path: '/login',
@@ -104,16 +109,17 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // 需要权限
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    // 是否有权限
-    if (localStorage.getItem(import.meta.env.VITE_TOKEN_KEY + '') == null) {
-      next({
-        name: 'Login',
-        query: { nextUrl: to.fullPath },
+    store
+      .dispatch('auth/me')
+      .then(() => {
+        next()
       })
-    } else {
-      // 可根据用户角色去跳转对应路由
-      next()
-    }
+      .catch((e) => {
+        next({
+          name: 'Login',
+          query: { nextUrl: to.fullPath },
+        })
+      })
   } else {
     // 判断 guest
     next()
